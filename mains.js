@@ -2,7 +2,7 @@ const getLocalStorage = () => JSON.parse(localStorage.getItem('db_cliente')) ?? 
 const setLocalStorage = (db_cliente) => localStorage.setItem("db_cliente", JSON.stringify(db_cliente))
 
 // ----Read------ 
- const readCLient = () => getLocalStorage() 
+const readCLient = () => getLocalStorage() 
 
 // ----Update------ 
 const updateClient = (index, client) => {
@@ -23,7 +23,7 @@ const createCliente = (client) => {
     const db_cliente = getLocalStorage()
     db_cliente.push(client)
     setLocalStorage (db_cliente)
-      
+         
 }
 
 
@@ -49,15 +49,15 @@ const saveCliente = () => {
         }
         const index = document.getElementById('nome').dataset.index
             if (index==='new') {
-        createCliente(client)
-        clearFields()
-        updateTable()
-        fecharmodal()
-        } else {
-            updateClient(index, client)
-            updateTable()
-            fecharmodal()
-        }
+                createCliente(client)
+                clearFields()
+                updateTable()
+                fecharmodal()
+        }   else{
+                updateClient(index, client)
+                updateTable()
+                fecharmodal()
+            }
     }
     
 }
@@ -125,7 +125,7 @@ const editDelete = (event) => {
                     if (response) {
                         deleteClient(index)
                         updateTable()
-                }
+                    }
             }
     }
 }
@@ -136,22 +136,25 @@ document.querySelector('#tableClient>tbody')
 
 // ------EVENTOS---------- 
 
+function abrirModal(){
+    const modal = document.querySelector('.modal')
+    modal.classList.add('active')
+}
 const buttonAbrir = document.querySelector('#cadastrarCliente')
     buttonAbrir.addEventListener('click',abrirModal)
 
-    function abrirModal(){
-        const modal = document.querySelector('.modal')
-        modal.classList.add('active')
+    
+
+function fecharmodal() {
+    clearFields()
+    const modal = document.querySelector('.modal')
+    modal.classList.remove('active')
     }
 
 const buttonFechar = document.querySelector("#modalClose")
     buttonFechar.addEventListener('click', fecharmodal)
 
-    function fecharmodal() {
-        clearFields()
-        const modal = document.querySelector('.modal')
-            modal.classList.remove('active')
-    }
+    
 
 document.getElementById('cancelar').addEventListener('click', fecharmodal)
 document.getElementById('buttonCadastrar').addEventListener('click', saveCliente) 
